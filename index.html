@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronometer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        html,
+        body {
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            border: 1px solid black;
+            padding: 10px;
+            margin-top: 50%;
+        }
+        
+        .meters {
+            border: 1px solid red;
+            display: flex;
+            flex-direction: row;
+            font-family: inherit;
+            font-size: 80px;
+        }
+        
+        .meter {
+            display: flex;
+            border: 1px solid blue;
+            width: 100px;
+            margin: 5px;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="meters">
+            <div class="meter hours">
+                <p class="number" id="hour">0</p><span>:</span>
+            </div>
+            <div class="meter minutes">
+                <p class="number" id="minute">0</p><span>:</span>
+            </div>
+            <div class="meter seconds">
+                <p class="number" id="second">0</p>
+            </div>
+        </div>
+
+        <div class="btns">
+            <button type="button" id="start" onclick="start()">Start</button>
+            <button type="button" id="stop" onclick="stop()">Stop</button>
+            <button type="reset" onclick="reset()" id="reset">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        var saniye = 0;
+        var dakika = 0;
+        var saat = 0;
+        var s;
+        var timer_is_on = 0;
+
+        // function call() {
+        //     setInterval(Start, 1000);
+        // }
+
+        function start() {
+            if (!timer_is_on) {
+                timer_is_on = 1;
+                count();
+            }
+        }
+
+        function count() {
+
+            saniye++;
+
+            document.getElementById('second').innerHTML = saniye;
+
+            s = setTimeout(count, 1000);
+
+            if (saniye == 60) {
+                saniye = 0;
+                document.getElementById('second').innerHTML = saniye;
+            }
+
+            if (saniye == 0 && dakika < 60) {
+                dakika++;
+                document.getElementById('minute').innerHTML = dakika;
+            }
+            if (dakika == 60) {
+                saat++;
+                document.getElementById('hour').innerHTML = saat;
+            }
+        }
+
+
+
+        function stop() {
+            clearTimeout(s);
+            timer_is_on = 0;
+        }
+
+        function reset() {
+            clearTimeout(s);
+            timer_is_on = 0;
+
+            // document.getElementById('second').value = 0;
+            // document.getElementById('minute').value = 0;
+            // document.getElementById('hour').value = 0;
+
+            document.getElementById('second').innerHTML = 0;
+            document.getElementById('minute').innerHTML = 0;
+            document.getElementById('hour').innerHTML = 0;
+        }
+    </script>
+</body>
+
+</html>
