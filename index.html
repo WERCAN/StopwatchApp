@@ -14,32 +14,105 @@
         
         html,
         body {
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(315deg, #f3e1e1, #faf2f2 100%);
             box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            /* position: relative; */
         }
         
         .container {
-            border: 1px solid black;
+            width: max-content;
+            position: absolute;
             padding: 10px;
-            margin-top: 50%;
+            margin-top: 10%;
+            margin-left: 30%;
+            background-color: #7d5a5a;
         }
         
         .meters {
-            border: 1px solid red;
             display: flex;
-            flex-direction: row;
-            font-family: inherit;
-            font-size: 80px;
+            justify-content: right;
+            font-family: "arial";
+            font-size: 90px;
+            background-color: #f1d1d1;
         }
         
         .meter {
             display: flex;
-            border: 1px solid blue;
-            width: 100px;
+            width: 120px;
+            height: 120px;
             margin: 5px;
-            justify-content: flex-end;
+            margin-left: 10px;
+            /* justify-content: flex-end; */
+            align-items: center;
+            color: black;
+        }
+        
+        .hours {
+            margin-left: 20px;
+        }
+        
+        .seconds {
+            display: flex;
+        }
+        
+        #second {}
+        
+        .btns {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        
+        button {
+            width: 100px;
+            height: 50px;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            text-align: center;
+            font-size: 25px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+        
+        #start {
+            background-color: white;
+            color: black;
+            border: 2px solid #041a02;
+            text-align: center;
+        }
+        
+        #start:hover {
+            background-color: rgba(189, 126, 67, 0.993);
+            color: black;
+        }
+        
+        #stop {
+            background-color: white;
+            color: black;
+            border: 2px solid #041a02;
+            text-align: center;
+        }
+        
+        #stop:hover {
+            background-color: rgba(189, 126, 67, 0.993);
+            color: white;
+        }
+        
+        #reset {
+            background-color: white;
+            color: black;
+            border: 2px solid #041a02;
+            text-align: center;
+        }
+        
+        #reset:hover {
+            background-color: rgba(189, 126, 67, 0.993);
+            color: white;
         }
     </style>
 </head>
@@ -48,13 +121,13 @@
     <div class="container">
         <div class="meters">
             <div class="meter hours">
-                <p class="number" id="hour">0</p><span>:</span>
+                <p class="number" id="hour">00</p><span>:</span>
             </div>
             <div class="meter minutes">
-                <p class="number" id="minute">0</p><span>:</span>
+                <p class="number" id="minute">00</p><span>:</span>
             </div>
             <div class="meter seconds">
-                <p class="number" id="second">0</p>
+                <p class="number" id="second">00</p>
             </div>
         </div>
 
@@ -72,10 +145,6 @@
         var s;
         var timer_is_on = 0;
 
-        // function call() {
-        //     setInterval(Start, 1000);
-        // }
-
         function start() {
             if (!timer_is_on) {
                 timer_is_on = 1;
@@ -86,10 +155,9 @@
         function count() {
 
             saniye++;
-
             document.getElementById('second').innerHTML = saniye;
 
-            s = setTimeout(count, 1000);
+            s = window.setTimeout(count, 1000);
 
             if (saniye == 60) {
                 saniye = 0;
@@ -104,6 +172,10 @@
                 saat++;
                 document.getElementById('hour').innerHTML = saat;
             }
+
+            document.getElementById("second").innerHTML = (saniye < 10) ? ('0' + saniye) : saniye;
+            document.getElementById("minute").innerHTML = (dakika < 10) ? ('0' + dakika) : dakika;
+            document.getElementById("hour").innerHTML = (saat < 10) ? ('0' + saat) : saat;
         }
 
 
@@ -114,16 +186,17 @@
         }
 
         function reset() {
-            clearTimeout(s);
-            timer_is_on = 0;
 
-            // document.getElementById('second').value = 0;
-            // document.getElementById('minute').value = 0;
-            // document.getElementById('hour').value = 0;
+            saniye = 0;
+            dakika = 0;
+            saat = 0;
 
-            document.getElementById('second').innerHTML = 0;
-            document.getElementById('minute').innerHTML = 0;
-            document.getElementById('hour').innerHTML = 0;
+            window.clearTimeout(s);
+            document.getElementById('second').innerHTML = "00";
+            document.getElementById('minute').innerHTML = "00";
+            document.getElementById('hour').innerHTML = "00";
+
+
         }
     </script>
 </body>
