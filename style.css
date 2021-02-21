@@ -12,7 +12,7 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
-    background-image: linear-gradient(315deg, #f3e1e1, #faf2f2 100%);
+    background-image: linear-gradient(315deg, #e4cfcf, #DDDDDD 100%);
 }
 
 .big-div {
@@ -25,7 +25,7 @@ body {
     display: inline-block;
     /* width: fit-content; */
     padding: 10px;
-    background-color: #7d5a5a;
+    background-color: #222831;
 }
 
 .meters {
@@ -33,7 +33,7 @@ body {
     justify-content: right;
     font-family: "arial";
     font-size: 90px;
-    background-color: #f1d1d1;
+    background-color: #30475E;
 }
 
 .meter {
@@ -44,7 +44,7 @@ body {
     margin-left: 10px;
     /* justify-content: flex-end; */
     align-items: center;
-    color: black;
+    color: white;
 }
 
 .hours {
@@ -76,53 +76,54 @@ button {
 }
 
 #start {
-    background-color: white;
-    color: black;
+    background-color: #F05454;
+    color: white;
     border: 2px solid #041a02;
     text-align: center;
 }
 
 #start:hover {
-    background-color: rgba(189, 126, 67, 0.993);
+    background-color: white;
     color: black;
 }
 
 #stop {
-    background-color: white;
-    color: black;
+    background-color: #F05454;
+    color: white;
     border: 2px solid #041a02;
     text-align: center;
 }
 
 #stop:hover {
-    background-color: rgba(189, 126, 67, 0.993);
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 #reset {
-    background-color: white;
-    color: black;
+    background-color: #F05454;
+    color: white;
     border: 2px solid #041a02;
     text-align: center;
 }
 
 #reset:hover {
-    background-color: rgba(189, 126, 67, 0.993);
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 .lab {
     display: block;
     margin-left: 10px;
     margin-top: 10px;
-    background-color: #f1d1d1;
-    color: #041a02;
+    background-color: #F05454;
+    color: white;
     font-weight: 500;
     border: 2px solid #041a02;
 }
 
 .lab:hover {
-    background-color: #f0c4c4;
+    background-color: white;
+    color: black;
 }
 
 hr.hr1 {
