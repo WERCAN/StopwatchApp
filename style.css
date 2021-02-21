@@ -55,8 +55,6 @@ body {
     display: flex;
 }
 
-#second {}
-
 .btns {
     margin-top: 10px;
     display: flex;
@@ -129,8 +127,6 @@ hr.hr1 {
     background-color: black;
     border: 1px solid black;
 }
-
-.lab-items {}
 
 .lab-item {
     margin: 0;
