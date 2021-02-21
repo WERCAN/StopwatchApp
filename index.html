@@ -6,152 +6,59 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chronometer</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(315deg, #f3e1e1, #faf2f2 100%);
-            box-sizing: border-box;
-            /* position: relative; */
-        }
-        
-        .container {
-            width: max-content;
-            position: absolute;
-            padding: 10px;
-            margin-top: 10%;
-            margin-left: 30%;
-            background-color: #7d5a5a;
-        }
-        
-        .meters {
-            display: flex;
-            justify-content: right;
-            font-family: "arial";
-            font-size: 90px;
-            background-color: #f1d1d1;
-        }
-        
-        .meter {
-            display: flex;
-            width: 120px;
-            height: 120px;
-            margin: 5px;
-            margin-left: 10px;
-            /* justify-content: flex-end; */
-            align-items: center;
-            color: black;
-        }
-        
-        .hours {
-            margin-left: 20px;
-        }
-        
-        .seconds {
-            display: flex;
-        }
-        
-        #second {}
-        
-        .btns {
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-        }
-        
-        button {
-            width: 100px;
-            height: 50px;
-            border-radius: 5px;
-            border: none;
-            color: white;
-            text-align: center;
-            font-size: 25px;
-            margin: 4px 2px;
-            transition-duration: 0.4s;
-            cursor: pointer;
-        }
-        
-        #start {
-            background-color: white;
-            color: black;
-            border: 2px solid #041a02;
-            text-align: center;
-        }
-        
-        #start:hover {
-            background-color: rgba(189, 126, 67, 0.993);
-            color: black;
-        }
-        
-        #stop {
-            background-color: white;
-            color: black;
-            border: 2px solid #041a02;
-            text-align: center;
-        }
-        
-        #stop:hover {
-            background-color: rgba(189, 126, 67, 0.993);
-            color: white;
-        }
-        
-        #reset {
-            background-color: white;
-            color: black;
-            border: 2px solid #041a02;
-            text-align: center;
-        }
-        
-        #reset:hover {
-            background-color: rgba(189, 126, 67, 0.993);
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="meters">
-            <div class="meter hours">
-                <p class="number" id="hour">00</p><span>:</span>
+    <div class="big-div">
+        <div class="box">
+            <div class="meters">
+                <div class="meter hours">
+                    <p class="number" id="hour">00</p><span>:</span>
+                </div>
+                <div class="meter minutes">
+                    <p class="number" id="minute">00</p><span>:</span>
+                </div>
+                <div class="meter seconds">
+                    <p class="number" id="second">00</p>
+                </div>
             </div>
-            <div class="meter minutes">
-                <p class="number" id="minute">00</p><span>:</span>
-            </div>
-            <div class="meter seconds">
-                <p class="number" id="second">00</p>
+
+            <div class="btns">
+                <button type="button" id="start" onclick="start()">Start</button>
+                <button type="button" id="stop" onclick="stop()">Stop</button>
+                <button type="reset" onclick="reset()" id="reset">Reset</button>
             </div>
         </div>
 
-        <div class="btns">
-            <button type="button" id="start" onclick="start()">Start</button>
-            <button type="button" id="stop" onclick="stop()">Stop</button>
-            <button type="reset" onclick="reset()" id="reset">Reset</button>
-        </div>
+        <button class="lab" id="lab" type="button" onclick="labFn()">Lab</button>
+        <hr class="hr1">
+
+        <ul class="lab-items" id="lab-items">
+
+        </ul>
     </div>
 
+
     <script>
+        var ul = document.getElementById("lab-items");
         var saniye = 0;
         var dakika = 0;
         var saat = 0;
-        var s;
-        var timer_is_on = 0;
+        var s; //setTimeOut function
+        var timer_is_on = false; // to check either timer is active nor not
+        var labNo = 1;
 
+        //--------start function if timer is not active----------
         function start() {
             if (!timer_is_on) {
-                timer_is_on = 1;
+                timer_is_on = true;
                 count();
             }
         }
 
+
+        //--------activating to count -------
         function count() {
 
             saniye++;
@@ -176,27 +83,64 @@
             document.getElementById("second").innerHTML = (saniye < 10) ? ('0' + saniye) : saniye;
             document.getElementById("minute").innerHTML = (dakika < 10) ? ('0' + dakika) : dakika;
             document.getElementById("hour").innerHTML = (saat < 10) ? ('0' + saat) : saat;
+
+
         }
 
 
-
+        //--------stop timer if timer is active----------
         function stop() {
             clearTimeout(s);
-            timer_is_on = 0;
+            timer_is_on = false;
         }
 
+        //--------reset timer ------------
         function reset() {
 
             saniye = 0;
             dakika = 0;
             saat = 0;
+            timer_is_on = false;
 
             window.clearTimeout(s);
             document.getElementById('second').innerHTML = "00";
             document.getElementById('minute').innerHTML = "00";
             document.getElementById('hour').innerHTML = "00";
+        }
 
 
+        //------------Add labs if timer is active------------
+        function labFn() {
+
+            if (timer_is_on) {
+                let saatLab = saat,
+                    dakikaLab = dakika,
+                    saniyeLab = saniye;
+
+                let li = document.createElement('li');
+                let number = document.createElement('span');
+                let labs = document.createElement('span');
+
+                li.setAttribute("class", "lab-item");
+                number.setAttribute("class", "number");
+                labs.className = "span-lab";
+
+                li.append(number, labs);
+                ul.appendChild(li);
+
+                number.innerHTML = `${labNo++}.Lab`
+                labs.innerHTML = `${saatLab}:${dakikaLab}:${saniyeLab}`;
+
+
+                let hr = document.createElement('hr');
+                li.appendChild(hr);
+
+                saniye = 0;
+                saat = 0;
+                dakika = 0;
+
+            }
+            return saniye, saat, dakika;
         }
     </script>
 </body>
